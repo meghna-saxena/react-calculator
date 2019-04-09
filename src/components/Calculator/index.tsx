@@ -2,6 +2,7 @@ import * as React from 'react';
 import { Keyboard } from '../Keyboard';
 import { DisplayScreen } from '../DisplayScreen';
 import { OPERATORS } from '../../constants/globalConstants'
+import './Calculator.css'
 
 export interface CalculatorProps {
 }
@@ -39,21 +40,38 @@ export default class Calculator extends React.Component<CalculatorProps, Calcula
             this.setState({ inputOne: input })
         }
 
-       // this.handleCalculation(operator, inputOne, inputTwo)
+        // switch (input) {
+        //     case (input === 'AC'):
+        //         this.handleReset()
+        //         break;
+        //     case (operators.includes(input)):
+        //         this.setState({
+        //             operator: input
+        //         });
+        //         break;
+        //     default:
+        //         this.setState({ inputOne: input })
+        // }
+
+        // this.handleCalculation(operator, inputOne, inputTwo)
+    }
+
+    handleReset() {
+       // this.setState = ({ inputOne: null })
     }
 
     handleCalculation(operator: string, inputOne: number, inputTwo: number) {
-
+        const result = { inputOne, operator, inputTwo };
     }
 
     public render() {
         const output = this.state.inputOne;
 
         return (
-            <React.Fragment>
+            <div className="calculator">
                 <DisplayScreen output={output} />
                 <Keyboard clicked={this.handleUserInput} />
-            </React.Fragment>
+            </div>
         );
     }
 }
