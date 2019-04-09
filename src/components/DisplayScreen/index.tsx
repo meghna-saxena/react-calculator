@@ -2,13 +2,13 @@ import * as React from 'react';
 import './DisplayScreen.css'
 
 export interface DisplayScreenProps {
-  input: string | number
+  output: number | null
 }
 
 export function DisplayScreen(props: DisplayScreenProps) {
-  const { input } = props;
+  const { output } = props;
 
   return (
-    <h1 className="display-screen">{input}</h1>
+    <h1 className="display-screen">{output}</h1>
   );
 }

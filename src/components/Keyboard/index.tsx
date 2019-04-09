@@ -19,8 +19,6 @@ export class Keyboard extends React.Component<KeyboardProps, KeyboardState> {
     }
 
     handleClick = (e: any) => {
-        console.log('event', e);
-
         const { clicked } = this.props;
         clicked(e)
     }

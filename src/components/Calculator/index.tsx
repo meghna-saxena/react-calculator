@@ -1,12 +1,16 @@
 import * as React from 'react';
 import { Keyboard } from '../Keyboard';
 import { DisplayScreen } from '../DisplayScreen';
+import { OPERATORS } from '../../constants/globalConstants'
 
 export interface CalculatorProps {
 }
 
 export interface CalculatorState {
-    input: string | number
+    inputOne: number | null,
+    operator: string,
+    inputTwo: number | null,
+    clickCounter: number
 }
 
 export default class Calculator extends React.Component<CalculatorProps, CalculatorState> {
@@ -14,7 +18,10 @@ export default class Calculator extends React.Component<CalculatorProps, Calcula
         super(props);
 
         this.state = {
-            input: ''
+            inputOne: null,
+            inputTwo: null,
+            operator: '',
+            clickCounter: 0
         }
     }
 
@@ -22,15 +29,29 @@ export default class Calculator extends React.Component<CalculatorProps, Calcula
         const input = e;
         console.log('INPUT', input)
 
-        this.setState({ input })
+        const operators = OPERATORS.map(el => el.symbol);
+
+        if (operators.includes(input)) {
+            this.setState({
+                operator: input
+            })
+        } else {
+            this.setState({ inputOne: input })
+        }
+
+       // this.handleCalculation(operator, inputOne, inputTwo)
+    }
+
+    handleCalculation(operator: string, inputOne: number, inputTwo: number) {
+
     }
 
     public render() {
-        const { input } = this.state;
+        const output = this.state.inputOne;
 
         return (
             <React.Fragment>
-                <DisplayScreen input={input} />
+                <DisplayScreen output={output} />
                 <Keyboard clicked={this.handleUserInput} />
             </React.Fragment>
         );
