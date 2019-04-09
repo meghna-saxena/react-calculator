@@ -6,12 +6,13 @@ export interface KeysProps {
 }
 
 export function Keys(props: KeysProps) {
+  const hasEmptyValue = props.content === '' ? true : false;
+
   return (
     <React.Fragment>
-      <button className="keys-btn">
+      <button className="keys-btn" disabled={hasEmptyValue}>
         {props.content}
       </button>
     </React.Fragment>
-
   );
 }

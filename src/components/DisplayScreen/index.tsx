@@ -6,8 +6,8 @@ export interface DisplayScreenProps {
 
 export function DisplayScreen (props: DisplayScreenProps) {
     return (
-      <div className="display-screen">
-        Test
-      </div>
+   
+        <h1 className="display-screen">0</h1>
+
     );
 }

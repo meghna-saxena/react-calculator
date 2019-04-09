@@ -1,9 +1,4 @@
 .keyboard {
-    /* display: flex;
-    /* align-items: center;
-    justify-content: center; */
-  /* flex-wrap: wrap; */
-    /* width: 200px; */
-    display: flex;
+  display: flex;
   flex-wrap: wrap;
 }

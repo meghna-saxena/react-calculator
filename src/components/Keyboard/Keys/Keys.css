@@ -1,13 +1,17 @@
 .keys-btn {
-    background-color: rgb(243, 240, 245);
+    /* background-color: rgb(243, 240, 245); */
+    background-color: rgb(22, 22, 22);
     width: 20px;
-    height: 60px;
-    font-size: 18px;
+    height: 80px;
+    font-size: 22px;
     /* box-shadow: 4px 2px rgb(228, 225, 225); */
     outline: none;
     cursor: pointer;
     flex: 1 0 21%; /* explanation below */
-  /* margin: 2px; */
-  /* height: 100px; */
-  /* background-color: blue; */
+    border: 1px solid rgb(71, 71, 71);
+    color: rgb(170, 165, 165)
+}
+
+.keys-btn:hover {
+    background-color: rgb(39, 35, 35);
 }
