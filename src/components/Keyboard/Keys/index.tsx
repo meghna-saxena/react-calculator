@@ -2,7 +2,7 @@ import * as React from 'react';
 import './Keys.css';
 
 export interface KeysProps {
-  content: number
+  content: string | number
 }
 
 export function Keys(props: KeysProps) {

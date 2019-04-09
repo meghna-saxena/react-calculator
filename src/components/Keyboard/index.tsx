@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { Keys } from './Keys'
-import { DIGITS, OPERATORS } from '../../constants/globalConstants';
+import { SYMBOLS} from '../../constants/globalConstants';
 import './Keyboard.css';
 
 export interface KeyboardProps {
@@ -8,7 +8,6 @@ export interface KeyboardProps {
 
 export interface KeyboardState {
 }
-
 
 export class Keyboard extends React.Component<KeyboardProps, KeyboardState> {
     constructor(props: KeyboardProps) {
@@ -19,8 +18,8 @@ export class Keyboard extends React.Component<KeyboardProps, KeyboardState> {
     }
 
     public render() {
-        const digits = DIGITS.map(element => {
-            return <Keys key={element} content={element} />
+        const digits = SYMBOLS.map(symbol => {
+            return <Keys key={symbol.symbol} content={symbol.symbol} />
         });
 
         console.log('digits', digits)
