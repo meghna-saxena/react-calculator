@@ -7,10 +7,11 @@ export interface KeysProps {
 
 export function Keys(props: KeysProps) {
   return (
-    <div>
-    <button className="keys-btn">
-      {props.content}
-    </button>
-    </div>
+    <React.Fragment>
+      <button className="keys-btn">
+        {props.content}
+      </button>
+    </React.Fragment>
+
   );
 }

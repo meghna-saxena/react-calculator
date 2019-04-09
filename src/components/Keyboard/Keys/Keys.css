@@ -2,8 +2,12 @@
     background-color: rgb(243, 240, 245);
     width: 60px;
     height: 60px;
-    font-size: 14px;
+    font-size: 18px;
     box-shadow: 4px 2px rgb(228, 225, 225);
     outline: none;
     cursor: pointer;
+    flex: 1 0 21%; /* explanation below */
+  margin: 2px;
+  /* height: 100px; */
+  /* background-color: blue; */
 }
