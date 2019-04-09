@@ -6,7 +6,7 @@ export interface CalculatorProps {
 }
 
 export interface CalculatorState {
-    input: string
+    input: string | number
 }
 
 export default class Calculator extends React.Component<CalculatorProps, CalculatorState> {
@@ -26,9 +26,11 @@ export default class Calculator extends React.Component<CalculatorProps, Calcula
     }
 
     public render() {
+        const { input } = this.state;
+
         return (
             <React.Fragment>
-                <DisplayScreen />
+                <DisplayScreen input={input} />
                 <Keyboard clicked={this.handleUserInput} />
             </React.Fragment>
         );
