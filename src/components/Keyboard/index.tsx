@@ -1,9 +1,10 @@
 import * as React from 'react';
 import { Keys } from './Keys'
-import { SYMBOLS} from '../../constants/globalConstants';
+import { SYMBOLS } from '../../constants/globalConstants';
 import './Keyboard.css';
 
 export interface KeyboardProps {
+    clicked: any
 }
 
 export interface KeyboardState {
@@ -17,12 +18,18 @@ export class Keyboard extends React.Component<KeyboardProps, KeyboardState> {
         }
     }
 
+    handleClick = (e: any) => {
+        console.log('event', e);
+
+        const { clicked } = this.props;
+        clicked(e)
+    }
+
     public render() {
-        const digits = SYMBOLS.map(symbol => {
-            return <Keys key={symbol.symbol} content={symbol.symbol} />
+        const digits = SYMBOLS.map(item => {
+            return <Keys key={item.symbol} symbol={item.symbol} clicked={(e: any) => this.handleClick(e)} />
         });
 
-        console.log('digits', digits)
         return (
             <div className="keyboard">
                 {digits}
