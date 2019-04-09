@@ -7,7 +7,7 @@ export interface KeysProps {
 }
 
 export function Keys(props: KeysProps) {
-  const hasEmptyValue = props.symbol === '' ? true : false;
+  //const hasEmptyValue = props.symbol === '' ? true : false;
   const { symbol, clicked } = props;
 
   const handleClick = (e: any) => {

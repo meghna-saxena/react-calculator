@@ -2,16 +2,18 @@ import * as React from 'react';
 import { Keyboard } from '../Keyboard';
 import { DisplayScreen } from '../DisplayScreen';
 import { OPERATORS } from '../../constants/globalConstants'
+import { getCalculationResult } from '../../helpers'
 import './Calculator.css'
 
 export interface CalculatorProps {
 }
 
 export interface CalculatorState {
-    inputOne: number | null,
+    initialInput: number | null,
     operator: string,
-    inputTwo: number | null,
-    clickCounter: number
+    nextInput: number | null,
+    clickCounter: number,
+    result: number | undefined
 }
 
 export default class Calculator extends React.Component<CalculatorProps, CalculatorState> {
@@ -19,54 +21,61 @@ export default class Calculator extends React.Component<CalculatorProps, Calcula
         super(props);
 
         this.state = {
-            inputOne: null,
-            inputTwo: null,
+            initialInput: null,
+            nextInput: null,
             operator: '',
-            clickCounter: 0
+            clickCounter: 0,
+            result: 0
         }
     }
 
     handleUserInput = (e: any) => {
-        const input = e;
-        console.log('INPUT', input)
+        const value = e;
+        console.log('INPUT', value)
 
         const operators = OPERATORS.map(el => el.symbol);
 
-        if (operators.includes(input)) {
-            this.setState({
-                operator: input
-            })
+        if (!operators.includes(value) && (this.state.clickCounter < 1)) {
+            this.setState({ initialInput: value, clickCounter: this.state.clickCounter + 1 })
+        } else if (!operators.includes(value) && (this.state.clickCounter >= 1)) {
+            this.setState({ nextInput: value, clickCounter: this.state.clickCounter + 1 })
         } else {
-            this.setState({ inputOne: input })
+            this.setState({ operator: value })
         }
 
-        // switch (input) {
-        //     case (input === 'AC'):
-        //         this.handleReset()
-        //         break;
-        //     case (operators.includes(input)):
-        //         this.setState({
-        //             operator: input
-        //         });
-        //         break;
-        //     default:
-        //         this.setState({ inputOne: input })
-        // }
+        const { initialInput, operator, nextInput } = this.state;
 
-        // this.handleCalculation(operator, inputOne, inputTwo)
+        if (value === '=') {
+            const result = getCalculationResult(initialInput, operator, nextInput);
+            console.log('RESULT', result)
+
+            this.setState({ result: result })
+        }
+
+
+        switch (value) {
+            case 'AC':
+                this.handleReset()
+                break;
+            case '=':
+                const result = getCalculationResult(initialInput, operator, nextInput);
+                console.log('RESULT', result)
+
+                this.setState({ result: result })
+                break;
+        }
     }
 
     handleReset() {
-       // this.setState = ({ inputOne: null })
-    }
-
-    handleCalculation(operator: string, inputOne: number, inputTwo: number) {
-        const result = { inputOne, operator, inputTwo };
+        this.setState({ initialInput: null, nextInput: null, result: 0, clickCounter: 0 })
     }
 
     public render() {
-        const output = this.state.inputOne;
+        const { initialInput, nextInput, clickCounter, result } = this.state;
 
+        const output = result && result >= 0 ? result : clickCounter <= 1 ? initialInput : nextInput;
+
+        console.log('STATE', this.state)
         return (
             <div className="calculator">
                 <DisplayScreen output={output} />
