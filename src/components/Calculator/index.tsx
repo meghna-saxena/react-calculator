@@ -9,9 +9,9 @@ export interface CalculatorProps {
 }
 
 export interface CalculatorState {
-    initialInput: number | null,
+    leftOperand: number | null,
     operator: string,
-    nextInput: number | null,
+    rightOperand: number | null,
     clickCounter: number,
     result: number | undefined
 }
@@ -21,8 +21,8 @@ export default class Calculator extends React.Component<CalculatorProps, Calcula
         super(props);
 
         this.state = {
-            initialInput: null,
-            nextInput: null,
+            leftOperand: null,
+            rightOperand: null,
             operator: '',
             clickCounter: 0,
             result: 0
@@ -35,47 +35,45 @@ export default class Calculator extends React.Component<CalculatorProps, Calcula
 
         const operators = OPERATORS.map(el => el.symbol);
 
+        if (typeof value === 'string') {
+            let bla = [];
+            bla.push(value);
+
+            console.log('BLA', bla)
+        }
+
+
         if (!operators.includes(value) && (this.state.clickCounter < 1)) {
-            this.setState({ initialInput: value, clickCounter: this.state.clickCounter + 1 })
+            this.setState({ leftOperand: value, clickCounter: this.state.clickCounter + 1 })
         } else if (!operators.includes(value) && (this.state.clickCounter >= 1)) {
-            this.setState({ nextInput: value, clickCounter: this.state.clickCounter + 1 })
+            this.setState({ rightOperand: value, clickCounter: this.state.clickCounter + 1 })
         } else {
             this.setState({ operator: value })
         }
 
-        const { initialInput, operator, nextInput } = this.state;
-
-        if (value === '=') {
-            const result = getCalculationResult(initialInput, operator, nextInput);
-            console.log('RESULT', result)
-
-            this.setState({ result: result })
-        }
-
+        const { leftOperand, operator, rightOperand } = this.state;
 
         switch (value) {
             case 'AC':
                 this.handleReset()
                 break;
             case '=':
-                const result = getCalculationResult(initialInput, operator, nextInput);
-                console.log('RESULT', result)
-
+                const result = getCalculationResult(leftOperand, operator, rightOperand);
                 this.setState({ result: result })
                 break;
         }
     }
 
     handleReset() {
-        this.setState({ initialInput: null, nextInput: null, result: 0, clickCounter: 0 })
+        this.setState({ leftOperand: null, rightOperand: null, result: 0, clickCounter: 0 })
     }
 
     public render() {
-        const { initialInput, nextInput, clickCounter, result } = this.state;
+        const { leftOperand, rightOperand, clickCounter, result } = this.state;
 
-        const output = result && result >= 0 ? result : clickCounter <= 1 ? initialInput : nextInput;
+        const output = result && result >= 0 ? result : clickCounter <= 1 ? leftOperand : rightOperand;
 
-        console.log('STATE', this.state)
+        // console.log('STATE', this.state)
         return (
             <div className="calculator">
                 <DisplayScreen output={output} />
