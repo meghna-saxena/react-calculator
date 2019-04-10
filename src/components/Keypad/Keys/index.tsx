@@ -11,9 +11,7 @@ export function Keys(props: KeysProps) {
   const { symbol, clicked } = props;
 
   const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
-    const { value } = (event.target as HTMLButtonElement).dataset
-
-    console.log(clicked)
+    const { value } = (event.target as HTMLButtonElement).dataset;
 
     clicked(value);
   }

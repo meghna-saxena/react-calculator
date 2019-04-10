@@ -1,26 +1,27 @@
 import * as React from 'react';
 import { Keys } from './Keys'
 import { SYMBOLS } from '../../constants/globalConstants';
-import './Keyboard.css';
+import './Keypad.css';
 
-export interface KeyboardProps {
-    clicked: any
+export interface KeypadProps {
+    clicked: Function
 }
 
-export interface KeyboardState {
+export interface KeypadState {
 }
 
-export class Keyboard extends React.Component<KeyboardProps, KeyboardState> {
-    constructor(props: KeyboardProps) {
+export class Keypad extends React.Component<KeypadProps, KeypadState> {
+    constructor(props: KeypadProps) {
         super(props);
 
         this.state = {
         }
     }
 
-    handleClick = (e: any) => {
+    handleClick = (event: string | number) => {
         const { clicked } = this.props;
-        clicked(e)
+
+        clicked(event)
     }
 
     public render() {
@@ -29,7 +30,7 @@ export class Keyboard extends React.Component<KeyboardProps, KeyboardState> {
         });
 
         return (
-            <div className="keyboard">
+            <div className="keypad">
                 {digits}
             </div>
         );

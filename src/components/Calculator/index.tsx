@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { Keyboard } from '../Keyboard';
+import { Keypad } from '../Keypad';
 import { DisplayScreen } from '../DisplayScreen';
 import { OPERATORS } from '../../constants/globalConstants'
 import { getCalculationResult } from '../../helpers'
@@ -9,9 +9,9 @@ export interface CalculatorProps {
 }
 
 export interface CalculatorState {
-    leftOperand: number | null,
+    leftOperand: number,
     operator: string,
-    rightOperand: number | null,
+    rightOperand: number,
     clickCounter: number,
     result: number | undefined
 }
@@ -21,31 +21,27 @@ export default class Calculator extends React.Component<CalculatorProps, Calcula
         super(props);
 
         this.state = {
-            leftOperand: null,
-            rightOperand: null,
+            leftOperand: 0,
+            rightOperand: 0,
             operator: '',
             clickCounter: 0,
             result: 0
         }
     }
 
-    handleUserInput = (e: any) => {
-        const value = e;
+    handleUserInput = (event: any) => {
+        const value = event;
         console.log('INPUT', value)
 
-        const operators = OPERATORS.map(el => el.symbol);
+        let bla = [];
+        bla.push(value);
 
-        if (typeof value === 'string') {
-            let bla = [];
-            bla.push(value);
-
-            console.log('BLA', bla)
-        }
+        console.log('BLA', bla)
 
 
-        if (!operators.includes(value) && (this.state.clickCounter < 1)) {
+        if (!OPERATORS.includes(value) && (this.state.clickCounter < 1)) {
             this.setState({ leftOperand: value, clickCounter: this.state.clickCounter + 1 })
-        } else if (!operators.includes(value) && (this.state.clickCounter >= 1)) {
+        } else if (!OPERATORS.includes(value) && (this.state.clickCounter >= 1)) {
             this.setState({ rightOperand: value, clickCounter: this.state.clickCounter + 1 })
         } else {
             this.setState({ operator: value })
@@ -65,7 +61,12 @@ export default class Calculator extends React.Component<CalculatorProps, Calcula
     }
 
     handleReset() {
-        this.setState({ leftOperand: null, rightOperand: null, result: 0, clickCounter: 0 })
+        this.setState({
+            leftOperand: 0,
+            rightOperand: 0,
+            result: 0,
+            clickCounter: 0
+        })
     }
 
     public render() {
@@ -73,11 +74,10 @@ export default class Calculator extends React.Component<CalculatorProps, Calcula
 
         const output = result && result >= 0 ? result : clickCounter <= 1 ? leftOperand : rightOperand;
 
-        // console.log('STATE', this.state)
         return (
             <div className="calculator">
                 <DisplayScreen output={output} />
-                <Keyboard clicked={this.handleUserInput} />
+                <Keypad clicked={this.handleUserInput} />
             </div>
         );
     }
