@@ -7,8 +7,8 @@ export interface KeysProps {
 }
 
 export function Keys(props: KeysProps) {
-  //const hasEmptyValue = props.symbol === '' ? true : false;
   const { symbol, clicked } = props;
+  const hasEmptyValue = symbol === '' ? true : false;
 
   const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
     const { value } = (event.target as HTMLButtonElement).dataset;
@@ -18,7 +18,7 @@ export function Keys(props: KeysProps) {
 
   return (
     <React.Fragment>
-      <button className="keys-btn" onClick={handleClick} data-value={symbol}>{symbol}</button>
+      <button className="keys-btn" onClick={handleClick} disabled={hasEmptyValue} data-value={symbol}>{symbol}</button>
     </React.Fragment>
   );
 }
