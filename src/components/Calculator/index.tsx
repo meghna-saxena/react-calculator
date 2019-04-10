@@ -13,7 +13,8 @@ export interface CalculatorState {
     operator: string,
     rightOperand: number,
     clickCounter: number,
-    result: number | undefined
+    result: number | undefined,
+    isOperatorSelected: boolean
 }
 
 export default class Calculator extends React.Component<CalculatorProps, CalculatorState> {
@@ -25,29 +26,41 @@ export default class Calculator extends React.Component<CalculatorProps, Calcula
             rightOperand: 0,
             operator: '',
             clickCounter: 0,
-            result: 0
+            result: 0,
+            isOperatorSelected: false
         }
     }
 
     handleUserInput = (event: any) => {
         const value = event;
-        console.log('INPUT', value)
 
-        let bla = [];
-        bla.push(value);
+        // if operator is not selected take all the values
+        // setstate as leftoperand
 
-        console.log('BLA', bla)
+        // // if (!OPERATORS.includes(value) && (this.state.clickCounter < 1)) {
+        //     if (!OPERATORS.includes(value) && !this.state.isOperatorSelected) {
+        //     // this.setState({ leftOperand: value, clickCounter: this.state.clickCounter + 1 })
+        //     this.setState({ leftOperand: (this.state.leftOperand !== 0) ? this.state.leftOperand + value : value })
+        // } else if (!OPERATORS.includes(value) && (this.state.clickCounter >= 1)) {
+        //     this.setState({ rightOperand: value, clickCounter: this.state.clickCounter + 1 })
+        // } else {
+        //     this.setState({ operator: value })
+        // }
 
 
-        if (!OPERATORS.includes(value) && (this.state.clickCounter < 1)) {
-            this.setState({ leftOperand: value, clickCounter: this.state.clickCounter + 1 })
-        } else if (!OPERATORS.includes(value) && (this.state.clickCounter >= 1)) {
-            this.setState({ rightOperand: value, clickCounter: this.state.clickCounter + 1 })
+
+        if (!OPERATORS.includes(value) && !this.state.isOperatorSelected) {
+            this.setState({ leftOperand: (this.state.leftOperand !== 0) ? this.state.leftOperand + value : value })
+        } else if (!OPERATORS.includes(value) && this.state.isOperatorSelected) {
+            this.setState({ rightOperand: (this.state.rightOperand !== 0) ? this.state.rightOperand + value : value })
         } else {
-            this.setState({ operator: value })
+            this.setState({ operator: value, isOperatorSelected: true })
         }
 
+
         const { leftOperand, operator, rightOperand } = this.state;
+
+        // console.log('leftOperand, operator, rightOperand', leftOperand, operator, rightOperand)
 
         switch (value) {
             case 'AC':
@@ -70,9 +83,14 @@ export default class Calculator extends React.Component<CalculatorProps, Calcula
     }
 
     public render() {
-        const { leftOperand, rightOperand, clickCounter, result } = this.state;
+        const { leftOperand, rightOperand, clickCounter, result, operator, isOperatorSelected } = this.state;
 
-        const output = result && result >= 0 ? result : clickCounter <= 1 ? leftOperand : rightOperand;
+        console.log('leftOperand, operator, rightOperand', leftOperand, operator, rightOperand)
+
+        console.log('clickcount', clickCounter)
+
+        // const output = result && result >= 0 ? result : clickCounter <= 1 ? leftOperand : rightOperand;
+        const output = result && result >= 0 ? result : !isOperatorSelected ? leftOperand : rightOperand;
 
         return (
             <div className="calculator">
