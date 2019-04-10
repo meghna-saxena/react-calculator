@@ -13,14 +13,6 @@ export function Keys(props: KeysProps) {
   const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
     const { value } = (event.target as HTMLButtonElement).dataset;
 
-
-    // let bla:any = [];
-    // bla.push(value)
-
-
-
-    // console.log('EVENT', bla)
-
     clicked(value);
   }
 

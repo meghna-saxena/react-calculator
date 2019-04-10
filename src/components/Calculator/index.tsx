@@ -69,8 +69,6 @@ export default class Calculator extends React.Component<CalculatorProps, Calcula
     public render() {
         const { leftOperand, rightOperand, result, operator, isOperatorSelected } = this.state;
 
-        console.log('leftOperand, operator, rightOperand', leftOperand, operator, rightOperand)
-
         const output = result && result >= 0 ? result : !isOperatorSelected ? leftOperand : rightOperand;
 
         return (

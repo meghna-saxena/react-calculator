@@ -1,4 +1,13 @@
 .calculator {
     box-shadow: 8px 10px rgb(203, 204, 203);
     border-radius: 5px;
+    padding: 20px;
+    background-color: rgb(137, 194, 180);
 }
+
+
+@media only screen and (max-width: 612px) {
+    .calculator {
+      width: 300px;
+    }
+  }

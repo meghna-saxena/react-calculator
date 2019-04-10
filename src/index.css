@@ -6,7 +6,8 @@ body {
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  background-color: #f2f4f7
+  /* background-color: #e9ebf0 */
+  background-image: url('https://cdn.shopify.com/s/files/1/0861/5764/products/Regular_large.jpg?v=1544606847')
 }
 
 code {
