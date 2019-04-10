@@ -2,7 +2,7 @@ import * as React from 'react';
 import './Keys.css';
 
 export interface KeysProps {
-  symbol: string | number,
+  symbol: string,
   clicked: Function
 }
 

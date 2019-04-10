@@ -12,7 +12,6 @@ export interface CalculatorState {
     leftOperand: number,
     operator: string,
     rightOperand: number,
-    result: number,
     isOperatorSelected: boolean
 }
 
@@ -24,14 +23,13 @@ export default class Calculator extends React.Component<CalculatorProps, Calcula
             leftOperand: 0,
             rightOperand: 0,
             operator: '',
-            result: 0,
             isOperatorSelected: false
         }
     }
 
     handleUserInput = (event: any) => {
         const value = event;
-        const { leftOperand, rightOperand, operator, isOperatorSelected } = this.state;
+        const { leftOperand, rightOperand, isOperatorSelected } = this.state;
 
         if (!OPERATORS.includes(value) && !isOperatorSelected) {
             this.setState({ leftOperand: (leftOperand !== 0) ? leftOperand + value : value })
@@ -53,7 +51,7 @@ export default class Calculator extends React.Component<CalculatorProps, Calcula
                 break;
             case '=':
                 const result = getCalculationResult(leftOperand, operator, rightOperand);
-                this.setState({ result: result })
+                this.setState({ leftOperand: result, rightOperand: 0 })
                 break;
         }
     }
@@ -61,15 +59,14 @@ export default class Calculator extends React.Component<CalculatorProps, Calcula
     handleReset() {
         this.setState({
             leftOperand: 0,
-            rightOperand: 0,
-            result: 0
+            rightOperand: 0
         })
     }
 
     public render() {
-        const { leftOperand, rightOperand, result, operator, isOperatorSelected } = this.state;
+        const { leftOperand, rightOperand } = this.state;
 
-        const output = result && result >= 0 ? result : !isOperatorSelected ? leftOperand : rightOperand;
+        const output = leftOperand >= 0 && rightOperand <= 0 ? leftOperand : rightOperand;
 
         return (
             <div className="calculator">

@@ -18,7 +18,7 @@ export class Keypad extends React.Component<KeypadProps, KeypadState> {
         }
     }
 
-    handleClick = (event: string | number) => {
+    handleClick = (event: string) => {
         const { clicked } = this.props;
 
         clicked(event)
@@ -26,7 +26,7 @@ export class Keypad extends React.Component<KeypadProps, KeypadState> {
 
     public render() {
         const digits = SYMBOLS.map(item => {
-            return <Keys key={item.symbol} symbol={item.symbol} clicked={(e: string | number) => this.handleClick(e)} />
+            return <Keys key={item.symbol} symbol={item.symbol} clicked={(e: string) => this.handleClick(e)} />
         });
 
         return (
