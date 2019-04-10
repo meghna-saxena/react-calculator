@@ -11,8 +11,7 @@ export interface CalculatorProps {
 export interface CalculatorState {
     leftOperand: number,
     operator: string,
-    rightOperand: number,
-    isOperatorSelected: boolean
+    rightOperand: number
 }
 
 export default class Calculator extends React.Component<CalculatorProps, CalculatorState> {
@@ -22,21 +21,20 @@ export default class Calculator extends React.Component<CalculatorProps, Calcula
         this.state = {
             leftOperand: 0,
             rightOperand: 0,
-            operator: '',
-            isOperatorSelected: false
+            operator: ''
         }
     }
 
     handleUserInput = (event: any) => {
         const value = event;
-        const { leftOperand, rightOperand, isOperatorSelected } = this.state;
+        const { leftOperand, rightOperand, operator } = this.state;
 
-        if (!OPERATORS.includes(value) && !isOperatorSelected) {
+        if (!OPERATORS.includes(value) && !operator) {
             this.setState({ leftOperand: (leftOperand !== 0) ? leftOperand + value : value })
-        } else if (!OPERATORS.includes(value) && isOperatorSelected) {
+        } else if (!OPERATORS.includes(value) && operator) {
             this.setState({ rightOperand: (rightOperand !== 0) ? rightOperand + value : value })
         } else {
-            this.setState({ operator: value, isOperatorSelected: true })
+            this.setState({ operator: value })
         }
 
         this.handleResultOutput(value)
@@ -59,14 +57,15 @@ export default class Calculator extends React.Component<CalculatorProps, Calcula
     handleReset() {
         this.setState({
             leftOperand: 0,
-            rightOperand: 0
+            rightOperand: 0,
+            operator: ''
         })
     }
 
     public render() {
         const { leftOperand, rightOperand } = this.state;
 
-        const output = leftOperand >= 0 && rightOperand <= 0 ? leftOperand : rightOperand;
+        const output = (leftOperand >= 0 && rightOperand <= 0) ? leftOperand : rightOperand;
 
         return (
             <div className="calculator">

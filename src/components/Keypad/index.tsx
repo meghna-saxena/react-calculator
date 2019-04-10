@@ -7,32 +7,23 @@ export interface KeypadProps {
     clicked: Function
 }
 
-export interface KeypadState {
+export function Keypad(props: KeypadProps) {
+    const handleClick = (event: string) => {
+        const { clicked } = props;
+
+        clicked(event);
+    }
+
+    const digits = SYMBOLS.map(item => {
+        return <Keys key={item.symbol} symbol={item.symbol} clicked={(e: string) => handleClick(e)} />
+    });
+
+    return (
+        <div className="keypad">
+            {digits}
+        </div>
+    );
 }
 
-export class Keypad extends React.Component<KeypadProps, KeypadState> {
-    constructor(props: KeypadProps) {
-        super(props);
 
-        this.state = {
-        }
-    }
 
-    handleClick = (event: string) => {
-        const { clicked } = this.props;
-
-        clicked(event)
-    }
-
-    public render() {
-        const digits = SYMBOLS.map(item => {
-            return <Keys key={item.symbol} symbol={item.symbol} clicked={(e: string) => this.handleClick(e)} />
-        });
-
-        return (
-            <div className="keypad">
-                {digits}
-            </div>
-        );
-    }
-}
