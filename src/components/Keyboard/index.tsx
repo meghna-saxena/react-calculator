@@ -25,7 +25,7 @@ export class Keyboard extends React.Component<KeyboardProps, KeyboardState> {
 
     public render() {
         const digits = SYMBOLS.map(item => {
-            return <Keys key={item.symbol} symbol={item.symbol} clicked={(e: any) => this.handleClick(e)} />
+            return <Keys key={item.symbol} symbol={item.symbol} clicked={(e: string | number) => this.handleClick(e)} />
         });
 
         return (
